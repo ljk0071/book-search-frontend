@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" />
+    <title th:text="${info.title}"></title>
+  </head>
+  <body>
+    <gnb class="nav">
+      <div class="inner">
+        <h1 class="logo"><a href="/"></a></h1>
+        <ul th:if="${session.authUser == null}" class="user">
+          <li class="user-in"><a href="joinForm">Join</a></li>
+          <li class="user-in"><a href="login">Login</a></li>
+        </ul>
+        <ul th:if="${session.authUser != null}" class="user">
+          <li class="user-in"><a href="logOut">Logout</a></li>
+        </ul>
+      </div>
+    </gnb>
+    <div class="subPage">
+      <div class="inner">
+        <div class="table view">
+          <table>
+            <colgroup>
+              <col style="width: 45%" />
+              <col style="width: 55%" />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="" alt="" />
+                </td>
+                <td>
+                  <p class="tit">스프링북 스도쿠 1(초급 중급)</p>
+                  <div class="table detail">
+                    <table>
+                      <colgroup>
+                        <col style="width: 100px" />
+                        <col style="width: auto" />
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <th scope="col">정가</th>
+                          <td>
+                            <span class="val">7,500원</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="col">판매가</th>
+                          <td><span class="price">6,750원</span></td>
+                        </tr>
+                        <tr>
+                          <th scope="col">ISBN</th>
+                          <td>89714299179788971429914</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">저자</th>
+                          <td>스도쿠 존연구소</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">출판사</th>
+                          <td>시간과공간사</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">출판일</th>
+                          <td>2018년 01월 08일</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">소개</th>
+                          <td>
+                            스프링북 스도쿠. 1(초급 중급)』는 다른 책과 달리 책
+                            왼쪽에 스프링을 달아 페이지를 넘기기 쉽 고, 직접
+                            문제를 풀기에도 편하다. 스도쿠는 연필로 쓰고
+                            지우거나 메모를 해야 하는 책이기 때문 에 일단 메모할
+                            곳이 많고 빈칸의 네모에 여러 숫자를 써야 하기 때문에
+                            네모가 큰 것이 유리하다. 그런 면에서 《스프링북
+                            스도쿠》는 독자들의 니즈를 충분히 파악하고 만든
+                            책이라고 단언할 수 있 다. 또, 스도쿠 입문자를 위해
+                            초급과 중급을 묶어서 만들고, 고급과”
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+              <!-- <tr>
+              <td th:text="${info.no}"></td>
+              <td><img th:src="${info.thumbnail}" /></td>
+              <td th:text="${info.title}"></td>
+              <td th:text="${info.contents}"></td>
+              <td th:text="${info.isbn}"></td>
+              <td th:text="${info.authors}"></td>
+              <td th:text="${info.publisher}"></td>
+              <td th:text="${info.datetime}"></td>
+              <td th:text="${info.price}"></td>
+              <td th:text="${info.salePrice}"></td>
+            </tr> -->
+            </tbody>
+          </table>
+        </div>
+        <div class="btn-area">
+          <button class="border">새로검색</button>
+          <button class="border">목록보기</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
