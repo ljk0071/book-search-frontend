@@ -1,52 +1,33 @@
 <template>
-	<div class="aside" style="float: left">
+	<!-- <div class="aside" style="float: left">
 		<ul th:each="search : ${searchList}">
 			<li th:text="${search}"></li>
 		</ul>
-	</div>
+	</div> -->
 	<article class="main search">
 		<div class="util-form">
 			<h2>어떤 책을 찾으시나요?</h2>
 
 			<div class="search-option-wrap">
 				<div class="search-input">
-					<form action="/search" method="get">
-						<input
-							name="search"
-							type="text"
-							class="input"
-							placeholder="검색어를 입력하세요"
-						/>
-						<input name="page" type="hidden" value="1" />
-						<button type="submit" class="hidden">검색</button>
-					</form>
+					<input
+						name="search"
+						type="text"
+						class="input"
+						placeholder="검색어를 입력하세요"
+						v-model="searchKeyword"
+						@focus="focusSearchBox"
+						@blur="blurSearchBox"
+					/>
+					<input name="page" type="hidden" value="1" />
+					<button class="hidden" @click="actionSearch">검색</button>
 				</div>
-				<div class="search-keyword-wrap">
+				<div class="search-keyword-wrap" v-show="showSearchOption">
 					<div class="search-keyword-cont">
 						<div class="keyword-box">
 							<p class="title-heading">최근 검색어</p>
 							<ul>
-								<li>
-									<p class="title">자바스크립트</p>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
-									<p class="title">자바스크립트</p>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
-									<p class="title">자바스크립트</p>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
-									<p class="title">자바스크립트</p>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
-									<p class="title">자바스크립트</p>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
+								<li v-for="(item, index) in 5" :key="index">
 									<p class="title">자바스크립트</p>
 									<span class="date">12. 14</span>
 								</li>
@@ -55,23 +36,9 @@
 						<div class="keyword-box">
 							<p class="title-heading">인기 검색어</p>
 							<ul>
-								<li>
+								<li v-for="(item, index) in 3" :key="index">
 									<div>
-										<span class="num">01</span>
-										<p class="title">자바스크립트</p>
-									</div>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
-									<div>
-										<span class="num">02</span>
-										<p class="title">자바스크립트</p>
-									</div>
-									<span class="date">12. 14</span>
-								</li>
-								<li>
-									<div>
-										<span class="num">03</span>
+										<span class="num">{{ index + 1 }}</span>
 										<p class="title">자바스크립트</p>
 									</div>
 									<span class="date">12. 14</span>
@@ -86,41 +53,26 @@
 </template>
 
 <script>
-// var login = document.getElementById("login");
-// var joinForm = document.getElementById("join-form");
-//
-// login.addEventListener("click", function() {
-//
-// })
-// joinForm.addEventListener("click", function() {
-//
-// })
+export default {
+	data() {
+		return {
+			searchKeyword: '',
+			showSearchOption: false,
+		};
+	},
 
-function getTargetParent(elem, targetClass) {
-	var currElem = elem;
-	while (currElem && !currElem.classList.contains(targetClass)) {
-		currElem = currElem.parentNode;
-	}
-	return currElem;
-}
+	methods: {
+		actionSearch() {
+			console.log(this.searchKeyword);
+		},
 
-/**
- * Add a focus event listener to an element to add "focus" class on the parent identified by targetClass
- **/
-function addFocusListener(elem, targetClass) {
-	var targetParent = getTargetParent(elem, targetClass);
-	if (targetParent) {
-		elem.addEventListener('focus', function () {
-			targetParent.classList.add('focus');
-		});
-		elem.addEventListener('blur', function () {
-			targetParent.classList.remove('focus');
-		});
-	}
-}
+		focusSearchBox() {
+			this.showSearchOption = true;
+		},
 
-var inputs = document.getElementsByClassName('input');
-for (var i = 0; i < inputs.length; i++) {
-	addFocusListener(inputs[i], 'search-option-wrap');
-}
+		blurSearchBox() {
+			this.showSearchOption = false;
+		},
+	},
+};
 </script>
