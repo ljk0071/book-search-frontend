@@ -82,9 +82,23 @@
 				</table>
 			</div>
 			<div class="btn-area">
-				<button class="border">새로검색</button>
-				<button class="border">목록보기</button>
+				<button class="border" @click="refreshSearch">새로검색</button>
+				<button class="border" @click="moveToLists">목록보기</button>
 			</div>
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	methods: {
+		refreshSearch() {
+			console.log('refresh');
+		},
+
+		moveToLists() {
+			this.$router.push('/search');
+		},
+	},
+};
+</script>
