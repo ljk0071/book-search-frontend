@@ -1,29 +1,10 @@
 <template>
-	<div th:if="${session.authUser != null}" style="float: left" class="clearfix">
-		<p>검색 목록</p>
-		<ul th:each="num : ${#numbers.sequence(0, infoList.searchList.size()-1)}">
-			<a th:href="@{/search(search=${infoList.searchList[num]}, page=1)}"
-				><li
-					class="search"
-					th:text="${infoList.searchList[num]}+'/'+${infoList.searchListTime[num]}"
-				></li
-			></a>
-		</ul>
-	</div>
-	<div style="float: right">
-		<p>검색 순위</p>
-		<ol th:each="sr : ${infoList.searchRankList}">
-			<a th:href="@{/search(search=${sr.search}, page=1)}"
-				><li
-					th:text="${srStat.count}+'위 '+${sr.search}+' '+${sr.hit}+'회'"
-				></li
-			></a>
-		</ol>
-	</div>
 	<div class="subPage">
 		<div class="inner">
 			<div class="search-result">
-				<p><span th:text="${infoList.search}"></span>의 검색 결과입니다.</p>
+				<p>
+					<span>'{{ searchTitle }}'</span>에 대한 65개의 검색 결과입니다.
+				</p>
 			</div>
 			<div class="table list">
 				<table>
@@ -33,13 +14,15 @@
 						<col style="width: 10%" />
 					</colgroup>
 					<tbody>
-						<tr th:each="info : ${infoList.lst}">
-							<td th:text="${infoStat.count}" class="count"></td>
+						<tr v-for="(item, index) in 10" :key="index">
+							<td class="count">
+								<span v-if="index < 9">0</span>{{ index + 1 }}
+							</td>
 							<td>
 								<div class="item">
-									<img th:src="${info.thumbnail}" alt="책 섬네일" />
+									<img src="" alt="책 섬네일" />
 									<div>
-										<p th:text="${info.title}" class="title"></p>
+										<p class="title">바닐라 자바스크립트</p>
 
 										<p class="publising">모닝글로리</p>
 
@@ -51,29 +34,7 @@
 								</div>
 							</td>
 							<td>
-								<a class="more">상세보기</a>
-							</td>
-						</tr>
-
-						<tr th:each="info : ${infoList.lst}">
-							<td th:text="${infoStat.count}" class="count"></td>
-							<td>
-								<div class="item">
-									<img th:src="${info.thumbnail}" />
-									<div>
-										<p th:text="${info.title}" class="title"></p>
-
-										<p class="publising">모닝글로리</p>
-
-										<p class="price-area">
-											<span class="price">6,750원</span>
-											<span class="val">7,500원</span>
-										</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<a th:href="@{/title(title=${info.title})}" class="more"
+								<a class="more" @click="this.$router.push('/search/:1')"
 									>상세보기</a
 								>
 							</td>
@@ -82,7 +43,7 @@
 				</table>
 			</div>
 
-			<div class="pagination">
+			<!-- <div class="pagination">
 				<div th:each="num : ${#numbers.sequence(1, infoList.totalPage)}">
 					<a
 						th:href="@{/search(search=${infoList.search}, page=${num})}"
@@ -96,18 +57,18 @@
 						th:text="${num}"
 					></a>
 				</div>
-			</div>
+			</div> -->
 
 			<!--pagination-->
 			<div class="pagination">
 				<button type="button" class="btn-prev">
 					<span class="hidden">이전</span>
 				</button>
-				<a href="/" class="active"><span>1</span></a>
-				<a href="/" class=""><span>2</span></a>
-				<a href="/" class=""><span>3</span></a>
-				<a href="/" class=""><span>4</span></a>
-				<a href="/" class=""><span>5</span></a>
+				<a href="/search" class="active"><span>1</span></a>
+				<a href="/search" class=""><span>2</span></a>
+				<a href="/search" class=""><span>3</span></a>
+				<a href="/search" class=""><span>4</span></a>
+				<a href="/search" class=""><span>5</span></a>
 				<button type="button" class="btn-next">
 					<span class="hidden">다음</span>
 				</button>
@@ -116,3 +77,21 @@
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	data() {
+		return {
+			searchTitle: '',
+		};
+	},
+
+	created() {
+		if (!this.$route.query?.q) {
+			this.$router.push('/');
+			return;
+		}
+		this.searchTitle = this.$route.query?.q;
+	},
+};
+</script>
