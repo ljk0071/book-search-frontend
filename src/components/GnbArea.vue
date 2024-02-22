@@ -5,11 +5,10 @@
 			<!-- <ul th:if="${session.authUser == null}" class="user"> -->
 			<ul class="user">
 				<li class="user-in"><router-link to="/signup">Join</router-link></li>
-				<li class="user-in"><router-link to="/login">Login</router-link></li>
-			</ul>
-			<!-- <ul th:if="${session.authUser != null}" class="user"> -->
-			<ul class="user">
-				<li class="user-in"><a @click="actionLogout">Logout</a></li>
+				<li class="user-in" v-if="!isLogin">
+					<router-link to="/login">Login</router-link>
+				</li>
+				<li class="user-in" v-else><a @click="actionLogout">Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -17,6 +16,12 @@
 
 <script>
 export default {
+	computed: {
+		isLogin() {
+			return this.$store.state.isLogin;
+		},
+	},
+
 	methods: {
 		actionLogout() {
 			console.log('logout');
