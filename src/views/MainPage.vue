@@ -21,7 +21,6 @@
 								@focus="focusSearchBox"
 								@keydown.enter="actionSearch"
 							/>
-							<input name="page" type="hidden" value="1" />
 							<button class="hidden" @click="actionSearch">검색</button>
 						</div>
 						<div class="search-keyword-wrap" v-show="showSearchOption">
@@ -75,7 +74,6 @@ export default {
 
 	methods: {
 		actionSearch() {
-			console.log(this.searchKeyword);
 			this.$router.push({
 				path: '/search',
 				query: {
@@ -89,10 +87,6 @@ export default {
 		},
 
 		focusoutSearchBox() {
-			this.showSearchOption = false;
-		},
-
-		blurSearchBox() {
 			this.showSearchOption = false;
 		},
 
