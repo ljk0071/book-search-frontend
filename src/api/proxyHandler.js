@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    "Content-Type": "application/json;charset=UTF-8",
-  },
+  // baseURL: import.meta.env.VITE_API_URL,
+  // headers: {
+  //   "Content-Type": "application/json;charset=UTF-8",
+  // },
   timeout: 30000,
+  withCredentials: true,
 });
 
 const axiosHandler = async (method, url, params, config = []) => {
@@ -33,6 +34,8 @@ const axiosHandler = async (method, url, params, config = []) => {
       console.log(error);
     }
   }
+
+  return response;
 }
 
 export default axiosHandler

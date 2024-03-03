@@ -10,10 +10,10 @@
 					<tbody>
 						<tr>
 							<td>
-								<img src="" alt="" />
+								<img :src="info.thumbnail" alt="책 섬네일" />
 							</td>
 							<td>
-								<p class="tit">스프링북 스도쿠 1(초급 중급)</p>
+								<p class="tit">책 제목</p>
 								<div class="table detail">
 									<table>
 										<colgroup>
@@ -24,41 +24,48 @@
 											<tr>
 												<th scope="col">정가</th>
 												<td>
-													<span class="val">7,500원</span>
+													<span class="val"
+														>{{ this.$filters.comma(info.price) }}원</span
+													>
 												</td>
 											</tr>
 											<tr>
 												<th scope="col">판매가</th>
-												<td><span class="price">6,750원</span></td>
+												<td>
+													<span class="price"
+														>{{ this.$filters.comma(info.price) }}원</span
+													>
+												</td>
 											</tr>
 											<tr>
 												<th scope="col">ISBN</th>
-												<td>89714299179788971429914</td>
+												<td>{{ info.isbn }}</td>
 											</tr>
 											<tr>
 												<th scope="col">저자</th>
-												<td>스도쿠 존연구소</td>
+												<td>
+													<div v-if="info.authors">{{ info.authors }}</div>
+													<div v-else>저자미상</div>
+												</td>
 											</tr>
 											<tr>
 												<th scope="col">출판사</th>
-												<td>시간과공간사</td>
+												<td>{{ info.publisher }}</td>
 											</tr>
 											<tr>
 												<th scope="col">출판일</th>
-												<td>2018년 01월 08일</td>
+												<td>
+													{{
+														this.$filters.replaceDateString(
+															info.publishDateTime,
+														)
+													}}
+												</td>
 											</tr>
 											<tr>
 												<th scope="col">소개</th>
 												<td>
-													스프링북 스도쿠. 1(초급 중급)』는 다른 책과 달리 책
-													왼쪽에 스프링을 달아 페이지를 넘기기 쉽 고, 직접
-													문제를 풀기에도 편하다. 스도쿠는 연필로 쓰고 지우거나
-													메모를 해야 하는 책이기 때문 에 일단 메모할 곳이 많고
-													빈칸의 네모에 여러 숫자를 써야 하기 때문에 네모가 큰
-													것이 유리하다. 그런 면에서 《스프링북 스도쿠》는
-													독자들의 니즈를 충분히 파악하고 만든 책이라고 단언할
-													수 있 다. 또, 스도쿠 입문자를 위해 초급과 중급을
-													묶어서 만들고, 고급과”
+													{{ info.contents }}
 												</td>
 											</tr>
 										</tbody>
@@ -82,7 +89,7 @@
 				</table>
 			</div>
 			<div class="btn-area">
-				<button class="border" @click="refreshSearch">새로검색</button>
+				<button class="border" @click="newSearch">새로검색</button>
 				<button class="border" @click="moveToLists">목록보기</button>
 			</div>
 		</div>
@@ -91,13 +98,38 @@
 
 <script>
 export default {
+	data() {
+		return {
+			info: {},
+		};
+	},
+
+	created() {
+		if (!history.state?.info) {
+			this.$router.push({
+				path: '/search',
+				query: {
+					q: this.$route.query?.q,
+				},
+			});
+			return;
+		}
+
+		this.info = history.state.info;
+	},
+
 	methods: {
-		refreshSearch() {
-			console.log('refresh');
+		newSearch() {
+			this.$router.push('/');
 		},
 
 		moveToLists() {
-			this.$router.push('/search');
+			this.$router.push({
+				path: '/search',
+				query: {
+					q: this.$route.query?.q,
+				},
+			});
 		},
 	},
 };
