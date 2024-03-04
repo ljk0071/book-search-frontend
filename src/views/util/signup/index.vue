@@ -2,7 +2,7 @@
 	<div class="sub-page">
 		<main class="main">
 			<div class="util-form join">
-				<h2>Join</h2>
+				<h2>회원가입</h2>
 				<div class="input-wrap">
 					<div class="input-form">
 						<div style="position: relative">

@@ -2,7 +2,7 @@
 	<div class="sub-page">
 		<main class="main">
 			<div class="util-form login">
-				<h2>Login</h2>
+				<h2>로그인</h2>
 				<div class="input-wrap">
 					<div class="input-form">
 						<input
