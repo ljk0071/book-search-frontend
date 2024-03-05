@@ -68,7 +68,7 @@
 			</div> -->
 
 			<!--pagination-->
-			<div class="pagination">
+			<!-- <div class="pagination">
 				<button type="button" class="btn-prev" @click="changePage('prev')">
 					<span class="hidden">이전</span>
 				</button>
@@ -82,7 +82,13 @@
 				<button type="button" class="btn-next" @click="changePage('next')">
 					<span class="hidden">다음</span>
 				</button>
-			</div>
+			</div> -->
+			<Pagination
+				:totalPage="totalPage"
+				:page="page"
+				:limitPage="limitPage"
+				@paging="paging"
+			/>
 			<!--pagination-->
 		</div>
 	</div>
@@ -90,8 +96,13 @@
 
 <script>
 import api from '@/api/util/book';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
+	components: {
+		Pagination,
+	},
+
 	data() {
 		return {
 			searchTitle: '',
@@ -99,6 +110,8 @@ export default {
 			totalElements: 0,
 			totalPage: 0,
 			page: 1,
+
+			limitPage: 10,
 		};
 	},
 
@@ -145,23 +158,10 @@ export default {
 			});
 		},
 
-		changePage(type, index) {
-			if (type === 'prev') {
-				if (this.page === 1) return;
-				this.page = this.page - 1;
-			}
-
-			if (type === 'next') {
-				if (this.page === this.totalPage) return;
-				this.page = this.page + 1;
-			}
-
-			if (type === 'num') {
-				this.page = index;
-			}
-
+		paging(page) {
+			this.page = page;
 			this.getBooksInfo();
-			window.scrollTo(0, 0);
+			// window.scrollTo(0, 0);
 		},
 	},
 };
