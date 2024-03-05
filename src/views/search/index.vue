@@ -134,7 +134,6 @@ export default {
 			};
 
 			const res = await api.searchBooks(params);
-			console.log(res);
 
 			if (!res.data?.data) {
 				this.$router.push('/');
