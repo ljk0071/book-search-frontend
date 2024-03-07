@@ -680,6 +680,66 @@ select {
 	}
 }
 
+.social-area {
+	position: absolute;
+	left: 550px;
+	top: 100px;
+	transform: translateX(-50%);
+	width: 300px;
+
+	button {
+		width: 300px;
+		height: 44px;
+		color: #636262;
+		background-color: #fff;
+		border-radius: 20px;
+		font-family: 'Pretendard SemiBold', 'Outfit Medium';
+
+		+ button {
+			margin-top: 10px;
+		}
+	}
+
+	.google {
+		&::before {
+			content: '';
+			position: absolute;
+			width: 22px;
+			height: 22px;
+			background: url(../images/ico-google.png) no-repeat center;
+			vertical-align: middle;
+			left: 40px;
+			background-size: cover;
+		}
+	}
+
+	.naver {
+		&::before {
+			content: '';
+			position: absolute;
+			width: 22px;
+			height: 22px;
+			background: url(../images/ico-naver.png) no-repeat center;
+			vertical-align: middle;
+			left: 40px;
+			background-size: cover;
+		}
+	}
+
+	.kakao {
+		&::before {
+			content: '';
+			position: absolute;
+			width: 22px;
+			height: 22px;
+			background: url(../images/ico-kakao.png) no-repeat center;
+			vertical-align: middle;
+			left: 40px;
+			background-size: cover;
+		}
+	}
+}
+
 .search-result {
 	width: 100%;
 	padding: 50px 0;

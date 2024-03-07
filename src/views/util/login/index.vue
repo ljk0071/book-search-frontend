@@ -25,6 +25,11 @@
 						<button @click="actionLogin">로그인</button>
 					</div>
 				</div>
+				<div class="social-area">
+					<button type="button" class="google">Continue with Google</button>
+					<button type="button" class="naver">Continue with Naver</button>
+					<button type="button" class="kakao">Continue with Kakao</button>
+				</div>
 			</div>
 		</main>
 	</div>
