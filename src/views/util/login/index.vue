@@ -28,7 +28,9 @@
 				<div class="social-area">
 					<button type="button" class="google">Continue with Google</button>
 					<button type="button" class="naver">Continue with Naver</button>
-					<button type="button" class="kakao">Continue with Kakao</button>
+					<button type="button" class="kakao" @click="kakaoLogin">
+						Continue with Kakao
+					</button>
 				</div>
 			</div>
 		</main>
@@ -49,6 +51,32 @@ export default {
 	methods: {
 		actionLogin() {
 			console.log('login');
+		},
+
+		kakaoLogin() {
+			console.log(window.Kakao);
+			window.Kakao.Auth.login({
+				scope: 'profile_nickname, profile_image',
+				success: this.getKakaoAccount(),
+			});
+		},
+
+		getKakaoAccount() {
+			window.Kakao.API.request({
+				url: '/v2/user/me',
+				success: res => {
+					const kakao_account = res.kakao_account;
+					const ninkname = kakao_account.profile.nickname;
+					this.$store.dispatch('userName', ninkname);
+					this.$store.dispatch('isLogin', true);
+
+					this.$router.push('/');
+				},
+				fail: error => {
+					console.log(error);
+					alert('다시 시도해주세요.');
+				},
+			});
 		},
 	},
 };

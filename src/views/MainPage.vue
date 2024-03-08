@@ -72,6 +72,10 @@ export default {
 		};
 	},
 
+	created() {
+		console.log(this.$store.state);
+	},
+
 	methods: {
 		actionSearch() {
 			this.$router.push({

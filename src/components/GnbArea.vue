@@ -8,7 +8,7 @@
 				<li class="user-in" v-if="!isLogin">
 					<router-link to="/login">Login</router-link>
 				</li>
-				<li class="user-in" v-else><a @click="actionLogout">Logout</a></li>
+				<li class="user-in" v-else><a @click="kakaoLogout">Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -26,6 +26,16 @@ export default {
 		actionLogout() {
 			console.log('logout');
 			console.log('hi');
+		},
+
+		kakaoLogout() {
+			window.Kakao.Auth.logout(res => {
+				if (res) {
+					this.$store.dispatch('isLogout');
+				} else {
+					alert('다시 시도해주세요.');
+				}
+			});
 		},
 	},
 };
