@@ -25,6 +25,7 @@ export default {
 	methods: {
 		actionLogout() {
 			console.log('logout');
+			console.log('hi');
 		},
 	},
 };

@@ -13,7 +13,7 @@
 								<img :src="info.thumbnail" alt="책 섬네일" />
 							</td>
 							<td>
-								<p class="tit">책 제목</p>
+								<p class="tit">{{ info.title }}</p>
 								<div class="table detail">
 									<table>
 										<colgroup>

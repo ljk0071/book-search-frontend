@@ -24,7 +24,7 @@
 									<img :src="item.thumbnail" alt="책 섬네일" />
 									<div>
 										<div class="flex sb">
-											<p class="title">책 제목</p>
+											<p class="title">{{ item.title }}</p>
 											<p class="writer">
 												{{ this.$filters.replaceSpacing(item.authors) }}
 											</p>
@@ -50,39 +50,12 @@
 					</tbody>
 				</table>
 			</div>
-
-			<!-- <div class="pagination">
-				<div th:each="num : ${#numbers.sequence(1, infoList.totalPage)}">
-					<a
-						th:href="@{/search(search=${infoList.search}, page=${num})}"
-						th:if="${infoList.page} == ${num}"
-						th:text="${num}"
-						style="font-weight: bold"
-					></a>
-					<a
-						th:href="@{/search(search=${infoList.search}, page=${num})}"
-						th:unless="${infoList.page} == ${num}"
-						th:text="${num}"
-					></a>
-				</div>
-			</div> -->
-
-			<!--pagination-->
-			<div class="pagination">
-				<button type="button" class="btn-prev" @click="changePage('prev')">
-					<span class="hidden">이전</span>
-				</button>
-				<a
-					v-for="index of totalPage"
-					:key="index"
-					:class="{ active: page === index }"
-					@click="changePage('num', index)"
-					><span>{{ index }}</span></a
-				>
-				<button type="button" class="btn-next" @click="changePage('next')">
-					<span class="hidden">다음</span>
-				</button>
-			</div>
+			<Pagination
+				:totalPage="totalPage"
+				:page="page"
+				:limitPage="limitPage"
+				@paging="paging"
+			/>
 			<!--pagination-->
 		</div>
 	</div>
@@ -90,8 +63,13 @@
 
 <script>
 import api from '@/api/util/book';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
+	components: {
+		Pagination,
+	},
+
 	data() {
 		return {
 			searchTitle: '',
@@ -99,6 +77,8 @@ export default {
 			totalElements: 0,
 			totalPage: 0,
 			page: 1,
+
+			limitPage: 10,
 		};
 	},
 
@@ -121,7 +101,6 @@ export default {
 			};
 
 			const res = await api.searchBooks(params);
-			console.log(res);
 
 			if (!res.data?.data) {
 				this.$router.push('/');
@@ -145,21 +124,8 @@ export default {
 			});
 		},
 
-		changePage(type, index) {
-			if (type === 'prev') {
-				if (this.page === 1) return;
-				this.page = this.page - 1;
-			}
-
-			if (type === 'next') {
-				if (this.page === this.totalPage) return;
-				this.page = this.page + 1;
-			}
-
-			if (type === 'num') {
-				this.page = index;
-			}
-
+		paging(page) {
+			this.page = page;
 			this.getBooksInfo();
 			window.scrollTo(0, 0);
 		},
