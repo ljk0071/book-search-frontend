@@ -15,7 +15,22 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         // rewrite: path => path.replace(/^\/api/, ''),
-      }
+      },
+      "/oauth2.0" : {
+        target : 'https://nid.naver.com/',
+        changeOrigin : true,
+        logLevel : 'debug'
+      },
+      "/v1" : {
+        target : 'https://openapi.naver.com/',
+        changeOrigin : true,
+        logLevel : 'debug'
+      },
+      "/oauth2" : {
+        target : 'https://oauth2.googleapis.com/',
+        changeOrigin : true,
+        logLevel : 'debug'
+      },
     }
   },
   resolve: {
