@@ -54,6 +54,7 @@ export default {
 					[],
 				);
 			}
+
 			this.$emit('paging', this.page - 1);
 		},
 
@@ -62,13 +63,10 @@ export default {
 
 			if (this.page === this.listData[this.listData.length - 1]) {
 				this.listData = this.listData
-					.map(item => {
-						if (item + 10 <= this.totalPage) {
-							return item + 10;
-						}
-					})
-					.filter(v => v !== undefined);
+					.map(item => item + 10)
+					.filter(v => v <= this.totalPage);
 			}
+
 			this.$emit('paging', this.page + 1);
 		},
 	},
